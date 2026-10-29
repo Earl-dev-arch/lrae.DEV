@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      try {
+        if (localStorage.getItem("portfolio-theme") === "light")
+          document.documentElement.classList.add("light-theme");
+      } catch {}
+    </script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Personal Details |</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Kode+Mono:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body::after {
+        content: "";
+        position: fixed;
+        z-index: 100;
+        inset: 0;
+        background: #101113;
+        transform: translateX(-101%);
+        transition: transform 0.38s cubic-bezier(0.76, 0, 0.24, 1);
+        pointer-events: none;
+      }
+      body.light-theme::after {
+        background: #f4f4ee;
+      }
+      body.page-leaving::after,
+      body.page-entering::after {
+        transform: translateX(0);
+      }
+      body.page-leaving header,
+      body.page-leaving main {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease;
+      }
+      .details-page {
+        background-color: #0b0c0e;
+      }
+      body.light-theme.details-page {
+        background-color: #f4f4ee;
+      }
+      .details-page header {
+        border-bottom: 1px solid #282c32;
+        background: #0b0c0e;
+      }
+      body.light-theme.details-page header {
+        border-bottom: 1px solid #d0d5cb;
+        background: #f4f4ee;
+      }
+      .details-page .back-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 190px;
+        padding: 13px 18px;
+        border: 2px solid #c9ff45;
+        border-radius: 999px;
+        background: #16181b;
+        color: #c9ff45;
+        text-decoration: none;
+        font: 10px 'DM Mono', monospace;
+        text-transform: uppercase;
+        transition:
+          background 0.22s ease,
+          color 0.22s ease,
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.25s ease;
+      }
+      .details-page .back-link:hover,
+      .details-page .back-link:focus-visible {
+        background: #c9ff45;
+        color: #101113;
+        text-decoration: none;
+        transform: translateX(-5px) scale(1.04);
+        box-shadow: 0 0 20px rgba(201, 255, 69, 0.5);
+      }
+      .details-page .details-photo {
+        padding: 6px;
+        border: 3px solid #282c32;
+        border-radius: 28px;
+        background: #16181b;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+      }
+      .details-page .profile-hello {
+        border: 2px solid #282c32;
+        border-radius: 999px;
+        background: #16181b;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+        color: #c9ff45;
+      }
+      .details-page .profile-hello:hover,
+      .details-page .profile-hello:focus-visible {
+        background: #1c1f24;
+        border-color: #c9ff45;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+      }
+      .details-page .details-intro {
+        margin: 32px 0;
+        padding: 20px;
+        border: 1px solid #282c32;
+        border-radius: 18px;
+        background: #16181b;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+        color: #d5d9d1;
+      }
+      .details-page .achievement-strip,
+      .details-page .details-list {
+        gap: 14px;
+        background: transparent;
+      }
+      .details-page .achievement-strip article {
+        border: 1px solid #282c32;
+        border-radius: 18px;
+        background: #16181b;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+        min-height: 164px;
+        padding: 25px;
+      }
+      .details-page .achievement-strip article:hover {
+        border-color: #383d46;
+        background: #1c1f24;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+        transform: translateY(-4px);
+      }
+      .details-page .achievement-strip strong {
+        font-size: clamp(34px, 3.5vw, 50px);
+        color: #c9ff45;
+      }
+      .details-page .achievement-strip article > span {
+        margin-top: 16px;
+        font-size: 10px;
+        color: #b7bbb5;
+      }
+      .details-page .details-list div {
+        border: 1px solid #282c32;
+        border-radius: 16px;
+        background: #16181b;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      }
+      .details-page .details-contact a {
+        padding: 12px 18px;
+        border: 1px solid #282c32;
+        border-radius: 999px;
+        background: #16181b;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        color: #f5f5f0;
+        text-decoration: none;
+        transition:
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.22s ease,
+          border-color 0.22s ease,
+          color 0.22s ease;
+      }
+      .details-page .details-contact a:hover,
+      .details-page .details-contact a:focus-visible {
+        border-color: #c9ff45;
+        background: #1c1f24;
+        color: #c9ff45;
+        transform: translateY(-2px);
+      }
+      .details-page .details-grid {
+        grid-template-columns: minmax(210px, 0.55fr) 1.65fr;
+      }
+
+      /* Light mode details page */
+      body.light-theme.details-page .logo span,
+      body.light-theme.details-page .details-copy h1 span,
+      body.light-theme.details-page .achievement-strip strong,
+      body.light-theme.details-page .details-list dt,
+      body.light-theme.details-page .available {
+        color: #4d7310;
+      }
+      body.light-theme.details-page .details-photo {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        box-shadow: 0 10px 24px rgba(44, 52, 42, 0.1);
+      }
+      body.light-theme.details-page .profile-hello {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        color: #243707;
+        box-shadow: 0 6px 18px rgba(44, 52, 42, 0.08);
+      }
+      body.light-theme.details-page .details-intro {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        box-shadow: 0 6px 18px rgba(44, 52, 42, 0.08);
+        color: #384321;
+      }
+      body.light-theme.details-page .achievement-strip article {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        box-shadow: 0 6px 18px rgba(44, 52, 42, 0.08);
+      }
+      body.light-theme.details-page .achievement-strip article:hover {
+        border-color: #b5bcaf;
+        background: #f0f2ec;
+        box-shadow: 0 10px 22px rgba(44, 52, 42, 0.12);
+      }
+      body.light-theme.details-page .achievement-strip article > span {
+        color: #354332;
+      }
+      body.light-theme.details-page .details-list div {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        box-shadow: 0 6px 18px rgba(44, 52, 42, 0.08);
+      }
+      body.light-theme.details-page .details-contact a {
+        border-color: #d0d5cb;
+        background: #e8ebe3;
+        box-shadow: 0 4px 14px rgba(44, 52, 42, 0.08);
+        color: #111315;
+      }
+      body.light-theme.details-page .details-contact a:hover {
+        border-color: #4d7310;
+        background: #f0f2ec;
+        color: #4d7310;
+      }
+
+      @media (max-width: 650px) {
+        .details-page .details-grid {
+          grid-template-columns: 1fr;
+        }
+        .details-page .achievement-strip article {
+          min-height: 122px;
+          padding: 22px;
+        }
+      }
+
+      @media (pointer: fine) {
+        body.details-page {
+          cursor: none;
+        }
+        body.details-page a,
+        body.details-page button {
+          cursor: none;
+        }
+        .cursor-dot,
+        .cursor-ring {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 200;
+          pointer-events: none;
+          opacity: 0;
+          transform: translate(-50%, -50%);
+          transition:
+            opacity 0.2s ease,
+            width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+            height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+            background 0.25s ease,
+            border-color 0.25s ease;
+        }
+        .cursor-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #c9ff45;
+          box-shadow: 0 0 12px rgba(201, 255, 69, 0.8);
+        }
+        .cursor-ring {
+          width: 32px;
+          height: 32px;
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
+          border-radius: 50%;
+          background: transparent;
+        }
+        .cursor-dot.is-visible,
+        .cursor-ring.is-visible {
+          opacity: 1;
+        }
+        .cursor-ring.is-hovering {
+          width: 48px;
+          height: 48px;
+          border-color: #c9ff45;
+          background: rgba(201, 255, 69, 0.12);
+        }
+      }
+    </style>
+  </head>
+  <body class="details-page page-entering">
+    <i class="cursor-dot" aria-hidden="true"></i
+    ><i class="cursor-ring" aria-hidden="true"></i>
+    <header>
+      <a class="logo" href="index.html"
+        >Earl<span>.dev</span><span class="role">personal details</span></a
+      >
+      <a class="available" href="mailto:earlgabfrontz@gmail.com"
+        >&bull; HIRE ME</a
+      >
+    </header>
+    <main class="details-main">
+      <a class="back-link" href="index.html?from=details"
+        >&larr; Back to portfolio</a
+      >
+      <div class="details-grid">
+        <div class="details-photo-wrap">
+          <img
+            class="details-photo"
+            src="profile-cutout.png"
+            alt="Portrait of Earl"
+          />
+          <button
+            class="profile-hello"
+            type="button"
+            aria-label="Animate the Hello World badge"
+          >
+            HELLO WORLD
+          </button>
+        </div>
+        <div class="details-copy">
+          <p class="label"></p>
+          <h1>Earl<br /><span>Fronteras.</span></h1>
+          <p class="details-intro">
+            I&rsquo;m an ICT student and front-end developer based in General
+            Santos City, Philippines. I enjoy building thoughtful websites,
+            learning through real projects, and improving one project at a time.
+          </p>
+          <section class="achievement-strip" aria-label="Experience highlights">
+            <article>
+              <strong class="project-count" data-count-to="10">1</strong
+              ><span>Projects completed</span>
+            </article>
+            <article>
+              <strong>1+<span> Years.</span></strong
+              ><span>Experience</span>
+            </article>
+            <article><strong>2</strong><span>Happy clients</span></article>
+          </section>
+          <dl class="details-list">
+            <div>
+              <dt>Role</dt>
+              <dd>Front-end Developer</dd>
+            </div>
+            <div>
+              <dt>Experience</dt>
+              <dd>1+ years</dd>
+            </div>
+            <div>
+              <dt>Main languages</dt>
+              <dd>HTML &amp; Java</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>Gensan, PH</dd>
+            </div>
+          </dl>
+          <div class="details-contact">
+            <a href="mailto:codthenew@gmail.com">codthenew@gmail.com &nearr;</a>
+            <a href="tel:09094313078">+63 909 431 3078</a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

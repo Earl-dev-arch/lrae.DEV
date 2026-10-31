@@ -662,6 +662,9 @@ body.light-theme nav a:focus-visible {
   color: #111315;
 }
 .theme-toggle {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
   width: 34px;
   height: 34px;
   padding: 0;
@@ -670,16 +673,54 @@ body.light-theme nav a:focus-visible {
   background: transparent;
   color: #ffffff;
   cursor: pointer;
-  font-size: 17px;
+  line-height: 0;
+  overflow: hidden;
   transition:
     background 0.2s ease,
     color 0.2s ease,
     transform 0.2s ease;
 }
+/* Theme toggle icons: Lucide sun and moon (ISC licence), line art drawn in
+   currentColor so they adapt to both themes. */
+.theme-toggle .meme-icon {
+  grid-area: 1 / 1;
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Dark theme shows the sun (switch to light); light theme shows the moon */
+.theme-toggle .meme-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+.theme-toggle .meme-moon {
+  opacity: 0;
+  transform: rotate(-45deg) scale(0.6);
+}
+body.light-theme .theme-toggle .meme-sun {
+  opacity: 0;
+  transform: rotate(45deg) scale(0.6);
+}
+body.light-theme .theme-toggle .meme-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
 .theme-toggle:hover {
   background: #ffffff;
   color: #101113;
-  transform: rotate(20deg);
+  transform: rotate(20deg) scale(1.08);
+}
+body.light-theme .theme-toggle:hover {
+  background: #111315;
+  color: #ffffff;
 }
 .available {
   color: #ffffff;
@@ -2255,25 +2296,8 @@ body.light-theme .intro-screen {
               touch-action: manipulation;
               -webkit-tap-highlight-color: transparent;
             }
-            .fan-deck .language-grid::after {
-              content: "";
-              position: absolute;
-              z-index: 0;
-              left: 6%;
-              right: 6%;
-              top: calc(var(--card-h) - 6px);
-              height: 22px;
-              border-radius: 50%;
-              background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent);
-              opacity: 0.6;
-              transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            }
             .fan-deck.is-open .language-grid {
               transform: scale(1);
-            }
-            .fan-deck.is-open .language-grid::after {
-              opacity: 0.3;
-              transform: scale(1.15);
             }
             .fan-deck .language {
               --slot: 0;
@@ -2347,6 +2371,7 @@ body.light-theme .intro-screen {
               --lift: 0px;
               --pop: 0px;
               --tilt-mult: 1;
+              --tilt-scale: 1;
               --grow: 1;
               cursor: pointer;
             }
@@ -2359,7 +2384,7 @@ body.light-theme .intro-screen {
               transition-delay: calc(var(--order) * 70ms);
               transform:
                 translate3d(calc(var(--slot) * var(--spread)), var(--lift), var(--pop))
-                rotate(calc(var(--slot) * var(--tilt) * var(--tilt-mult)))
+                rotate(calc(var(--slot) * var(--tilt) * var(--tilt-mult) * var(--tilt-scale)))
                 scale(var(--grow));
             }
             .fan-deck.is-open .language-grid .language.is-shown:hover,
@@ -2514,9 +2539,7 @@ body.light-theme .intro-screen {
               background: #f0f2ec;
               box-shadow: none;
             }
-            body.light-theme .fan-deck .language-grid::after {
-              background: radial-gradient(closest-side, rgba(44, 52, 42, 0.3), transparent);
-            }
+
 
             @media (min-width: 651px) {
               .fan-deck {

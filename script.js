@@ -81,12 +81,15 @@ try {
   // dapat mo gana ning yawaa ni boshet
 }
 
-if (themeToggle) {
-  const isLight = document.body.classList.contains('light-theme');
-  themeToggle.textContent = isLight ? '☾' : '☼';
+// The button shows a trollface icon, so only the accessible state changes here.
+const syncThemeToggle = (isLight) => {
+  if (!themeToggle) return;
   themeToggle.setAttribute('aria-pressed', String(isLight));
   themeToggle.setAttribute('aria-label', `Switch to ${isLight ? 'dark' : 'light'} theme`);
-}
+  themeToggle.title = `Switch to ${isLight ? 'dark' : 'light'} theme`;
+};
+
+syncThemeToggle(document.body.classList.contains('light-theme'));
 
 themeToggle?.addEventListener('click', () => {
   const isLight = document.body.classList.toggle('light-theme');
@@ -95,9 +98,7 @@ themeToggle?.addEventListener('click', () => {
   } catch {
     // bantay lagig naay error
   }
-  themeToggle.textContent = isLight ? '☾' : '☼';
-  themeToggle.setAttribute('aria-pressed', String(isLight));
-  themeToggle.setAttribute('aria-label', `Switch to ${isLight ? 'dark' : 'light'} theme`);
+  syncThemeToggle(isLight);
 });
 
 const cursorDot = document.querySelector('.cursor-dot');
@@ -283,7 +284,6 @@ if (fanDeck) {
 
   const visible = 4;
   const total = deckCards.length;
-  const maxStart = Math.max(0, total - visible);
 
 
   let start = 0;
@@ -300,16 +300,16 @@ if (fanDeck) {
   });
 
   const syncNextButton = () => {
-    const isLastSet = start + visible >= total;
-    const label = isLastSet ? 'Stack the deck' : 'Next languages';
+    // Past the final set the deck loops back to the first card.
+    const isWrapping = start + Math.min(visible, total - start) >= total;
 
     deckCards.forEach((card) => {
       const button = card.querySelector('.card-next');
       if (!button) return;
-      button.querySelector('span').textContent = label;
+      button.querySelector('span').textContent = isWrapping ? 'Back to the start' : 'Next languages';
       button.setAttribute(
         'aria-label',
-        isLastSet ? 'Return the languages to a stack' : 'Show the next four languages'
+        isWrapping ? 'Show the first four languages again' : 'Show the next four languages'
       );
     });
   };
@@ -322,16 +322,24 @@ if (fanDeck) {
       isOpen ? 'Show the next programming languages' : 'Show programming languages'
     );
 
+    // A set may be shorter than four (the deck's tail), so centre on the cards
+    // actually dealt rather than on a fixed four-card spread.
+    const dealt = Math.min(visible, total - start);
+    const mid = (dealt - 1) / 2;
+
     deckCards.forEach((card, index) => {
       const offset = index - start;
-      const isShown = offset >= 0 && offset < visible;
-      const slot = offset - (visible - 1) / 2;
+      const isShown = offset >= 0 && offset < dealt;
+      const slot = offset - mid;
       const order = Math.abs(slot) * 2 + (slot > 0 ? 1 : 0);
       const dir = slot === 0 ? 1 : Math.sign(slot);
 
       card.style.setProperty('--slot', String(slot));
       card.style.setProperty('--order', String(order));
       card.style.setProperty('--dir', String(dir));
+      // Cards further from the centre lean a little more, so a short set
+      // still reads as a fan instead of a flat row.
+      card.style.setProperty('--tilt-scale', String(1 + Math.abs(slot) * 0.2));
       card.classList.toggle('is-shown', isShown);
       card.setAttribute('aria-hidden', String(!isShown));
       card.tabIndex = isShown ? 0 : -1;
@@ -356,22 +364,16 @@ if (fanDeck) {
       return;
     }
 
-    if (start < maxStart) {
-      // Slide the whole row out, then deal the next four back in.
-      isAdvancing = true;
-      clearReveal();
-      deckCards.forEach((card) => card.classList.remove('is-shown'));
-      window.setTimeout(() => {
-        start = Math.min(maxStart, start + visible);
-        render(true);
-        isAdvancing = false;
-      }, 220);
-      return;
-    }
-
-    isOpen = false;
+    // Always deal a full hand. Past the end the deck restarts from the first
+    // card, so the last set is never a short, lopsided fan.
+    isAdvancing = true;
     clearReveal();
-    render(true);
+    deckCards.forEach((card) => card.classList.remove('is-shown'));
+    window.setTimeout(() => {
+      start = start + visible >= total ? 0 : start + visible;
+      render(true);
+      isAdvancing = false;
+    }, 220);
   };
 
   render(false);

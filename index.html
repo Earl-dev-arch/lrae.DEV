@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -106,12 +106,12 @@
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
         color: #f5f5f0;
       }
-      .details-button:hover,
+            .details-button:hover,
       .details-button:focus-visible {
-        border-color: #c9ff45;
+        border-color: #ffffff;
         background: #1c1f24;
-        color: #c9ff45;
-        box-shadow: 0 0 18px rgba(201, 255, 69, 0.35);
+        color: #ffffff;
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
         transform: translateY(-2px);
       }
       body.light-theme .details-button {
@@ -161,9 +161,9 @@
       .profile-stats p {
         border-radius: 14px;
       }
-      .profile-stats b {
+            .profile-stats b {
         background: #101113;
-        color: #c9ff45;
+        color: #ffffff;
       }
       .ticker {
         margin: 0 6vw;
@@ -186,12 +186,12 @@
       #contact .mail {
         border-color: #383d46;
       }
-      #contact .mail:hover {
-        border-color: #c9ff45;
-        color: #c9ff45;
+            #contact .mail:hover {
+        border-color: #ffffff;
+        color: #ffffff;
       }
       #contact h2 span {
-        color: #c9ff45;
+        color: #ffffff;
       }
       .social-links a {
         border: 1px solid #282c32;
@@ -202,8 +202,8 @@
       }
       .social-links a:hover,
       .social-links a:focus-visible {
-        border-color: #c9ff45;
-        background: #c9ff45;
+        border-color: #ffffff;
+        background: #ffffff;
         color: #101113;
       }
       footer {
@@ -252,7 +252,7 @@
       body.light-theme .ticker {
         color: #111315;
       }
-      body.light-theme .logo span,
+            body.light-theme .logo span,
       body.light-theme h1 span,
       body.light-theme .section-title span,
       body.light-theme .green,
@@ -260,23 +260,23 @@
       body.light-theme .skill-bar-label strong,
       body.light-theme .details-button,
       body.light-theme .available {
-        color: #4d7310;
+        color: #111111;
       }
       body.light-theme .skill-bar-track i {
-        background: linear-gradient(90deg, #41640d, #5e8a16 65%, #7ca72c);
-        box-shadow: 0 0 10px rgba(77, 115, 16, 0.25);
+        background: linear-gradient(90deg, #333, #666 65%, #999);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
       }
       body.light-theme .profile-stats b {
-        background: #283b0a;
-        color: #d9f28a;
+        background: #111;
+        color: #fff;
       }
       body.light-theme #contact h2 span {
-        color: #4d7310;
+        color: #333;
       }
       body.light-theme .profile-photo {
-        border-color: #4d7310;
+        border-color: #111;
         box-shadow:
-          12px 12px 0 #403b9b,
+          12px 12px 0 #666,
           0 0 0 2px rgba(17, 19, 21, 0.2);
       }
       body.light-theme .profile-stats p {
@@ -311,12 +311,12 @@
             background 0.25s ease,
             border-color 0.25s ease;
         }
-        .cursor-dot {
+                .cursor-dot {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          background: #c9ff45;
-          box-shadow: 0 0 12px rgba(201, 255, 69, 0.8);
+          background: #ffffff;
+          box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
         }
         .cursor-ring {
           width: 32px;
@@ -329,37 +329,84 @@
         .cursor-ring.is-visible {
           opacity: 1;
         }
-        .cursor-ring.is-hovering {
+                .cursor-ring.is-hovering {
           width: 48px;
           height: 48px;
-          border-color: #c9ff45;
-          background: rgba(201, 255, 69, 0.12);
+          border-color: #ffffff;
+          background: rgba(255, 255, 255, 0.12);
         }
       }
-      .typing-line {
+            .typing-line {
         display: flex;
         align-items: center;
         gap: 2px;
         margin-top: 25px;
         font: 500 clamp(13px, 1.2vw, 17px) 'DM Mono', monospace;
-        color: #c9ff45;
+        color: #ffffff;
         letter-spacing: .04em;
       }
       body.light-theme .typing-line {
-        color: #4d7310;
+        color: #111;
       }
-      .typing-cursor {
-        display: inline-block;
-        animation: blink-cursor .7s step-end infinite;
-        font-weight: 300;
-        color: #c9ff45;
-      }
-      body.light-theme .typing-cursor {
-        color: #4d7310;
-      }
-      @keyframes blink-cursor {
-        50% { opacity: 0; }
-      }
+            /* Gallery Ticker - Medium Sized */
+            .gallery-section {
+              padding: 60px 0;
+              overflow: hidden;
+              background: transparent;
+            }
+            .gallery-container {
+              display: flex;
+              gap: 15px;
+              width: max-content;
+              animation: gallery-loop 35s linear infinite;
+              will-change: transform;
+            }
+            .gallery-item {
+              width: 220px;
+              height: 300px;
+              flex-shrink: 0;
+              border-radius: 16px;
+              overflow: hidden;
+              border: 1px solid #282c32;
+              background: #16181b;
+              box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+              transition: transform 0.3s ease, border-color 0.3s ease;
+            }
+            .gallery-item:hover {
+              transform: translateY(-8px) scale(1.02);
+              border-color: #ffffff;
+            }
+            .gallery-item img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              filter: grayscale(100%);
+              transition: filter 0.3s ease;
+            }
+            .gallery-item:hover img {
+              filter: grayscale(0%);
+            }
+            @keyframes gallery-loop {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+            body.light-theme .gallery-item {
+              border-color: #d0d5cb;
+              background: #e8ebe3;
+              box-shadow: 0 8px 24px rgba(44, 52, 42, 0.1);
+            }
+            body.light-theme .gallery-item:hover {
+              border-color: #111;
+            }
+            @media (max-width: 650px) {
+              .gallery-item {
+                width: 180px;
+                height: 250px;
+              }
+            }
+
+
+
     </style>
   </head>
   <body class="is-loading page-entering">
@@ -367,9 +414,10 @@
     ><i class="cursor-ring" aria-hidden="true"></i>
     <div class="intro-screen" aria-hidden="true">
       <p class="intro-kicker">
-        <span>WELCOME</span><span>MABUHAY</span><span>هلاً وسهلاً</span
-        ><span>欢迎</span><span>स्वागत है</span><span>ようこそ</span
-        ><span>환영합니다</span>
+        <span lang="en">WELCOME</span><span lang="tl">MABUHAY</span
+        ><span lang="ar" dir="rtl">هلاً وسهلاً</span><span lang="zh-Hans">欢迎</span
+        ><span lang="hi">स्वागत है</span><span lang="ja">ようこそ</span
+        ><span lang="ko">환영합니다</span>
       </p>
     </div>
     <a class="skip-link" href="#top">Skip to content</a>
@@ -377,9 +425,9 @@
       <a class="logo" href="#top"
         >Lrae<span>.DEV</span><span class="role">junior programmer</span></a
       >
-      <nav aria-label="Primary navigation">
+                <nav aria-label="Primary navigation">
         <a href="#work">work</a><a href="#stack">stack</a
-        ><a href="#skills">skills</a><a href="#contact">contact</a>
+        ><a href="#gallery">gallery</a><a href="#contact">contact</a>
       </nav>
       <button
         class="theme-toggle"
@@ -387,7 +435,7 @@
         aria-label="Switch to light theme"
         aria-pressed="false"
       >
-        ☼
+        ð“†
       </button>
       <a class="available" href="mailto:codthenew@gmail.com"
         >&bull; available for hire</a
@@ -411,7 +459,7 @@
               problems, explore creative ideas, and create digital experiences
               people can genuinely use.
             </p>
-            <p class="typing-line"><span class="typing-text"></span><span class="typing-cursor">|</span></p>
+            
           </div>
           <div class="portrait-wrap">
             <img
@@ -421,7 +469,7 @@
             />
             <div class="profile-stats" aria-label="Profile highlights">
               <p> 1+ years of experience</p>
-              <p> HTML &amp; Java main languages</p>
+              <p> Front-end Developer</p>
             </div>
           </div>
         </div>
@@ -523,12 +571,16 @@
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="" />
             <span>POSTGRESQL</span>
           </div>
+          <div class="ticker-item" aria-hidden="true">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="" />
+            <span>TAILWIND CSS</span>
+          </div>
         </div>
       </div>
             <section id="work">
         <p class="label"></p>
         <div class="work-heading">
-          <h2 class="scroll-reveal-left">Github<br /><span>Repo</span></h2>
+          <h2 class="scroll-reveal-left">Github<br /><span>Activity</span></h2>
           <p>
             Track my open-source code repositories, projects, and active contributions.
           </p>
@@ -545,165 +597,93 @@
             />
           </svg>
           <span class="github-activity-label"
-            >View my GitHub activity <b>↗</b></span
+            >View my GitHub activity <b></b></span
           >
-          <img
+                    <img
             class="github-chart"
-            src="https://ghchart.xqsit94.in/dark:c9ff45/Earl-dev-arch"
+            src="https://ghchart.xqsit94.in/dark:ffffff/Earl-dev-arch"
             alt="Earl's GitHub contribution activity graph"
           />
         </a>
       </section>
-      <section id="stack">
+            <section id="stack">
         <p class="label"></p>
         <h2 class="section-title scroll-reveal-right">The tools behind<br /><span>my work.</span></h2>
-        <div class="language-grid">
-          <article class="language html">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                alt="HTML5 logo"
-            /></b>
-            <h3>HTML5</h3>
-            <p>Builds the structure and content of web pages.</p>
-          </article>
-          <article class="language css">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-                alt="CSS3 logo"
-            /></b>
-            <h3>CSS3</h3>
-            <p>Styles layouts, colors, typography, and responsive designs.</p>
-          </article>
-          <article class="language js">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                alt="JavaScript logo"
-            /></b>
-            <h3>JavaScript</h3>
-            <p>Adds interactive behavior and dynamic features to websites.</p>
-          </article>
-          <article class="language react">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                alt="React.js logo"
-            /></b>
-            <h3>React.js</h3>
-            <p>Builds reusable, fast user interfaces from components.</p>
-          </article>
-          <article class="language python">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                alt="Python logo"
-            /></b>
-            <h3>Python</h3>
-            <p>Supports automation, data work, and back-end development.</p>
-          </article>
-          <article class="language java">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-                alt="Java logo"
-            /></b>
-            <h3>Java</h3>
-            <p>Creates reliable applications for web, desktop, and Android.</p>
-          </article>
-          <article class="language mysql">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-                alt="MySQL logo"
-            /></b>
-            <h3>MySQL</h3>
-            <p>Manages structured relational data and high-speed database queries.</p>
-          </article>
-          <article class="language postgresql">
-            <b
-              ><img
-                class="language-logo"
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
-                alt="PostgreSQL logo"
-            /></b>
-            <h3>PostgreSQL</h3>
-            <p>Handles robust, complex relational databases and advanced data schemas.</p>
-          </article>
+        <div class="stack-slider-container fan-deck">
+          <div
+            class="language-grid"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-label="Show programming languages"
+          >
+            <i class="deck-back" aria-hidden="true"></i>
+            <article class="language html">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 logo"/></b>
+              <h3>HTML5</h3>
+              <p>Builds the structure and content of web pages.</p>
+            </article>
+            <article class="language css">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 logo"/></b>
+              <h3>CSS3</h3>
+              <p>Styles layouts, colors, typography, and responsive designs.</p>
+            </article>
+            <article class="language js">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript logo"/></b>
+              <h3>JavaScript</h3>
+              <p>Adds interactive behavior and dynamic features to websites.</p>
+            </article>
+            <article class="language react">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo"/></b>
+              <h3>React.js</h3>
+              <p>Builds reusable, fast user interfaces from components.</p>
+            </article>
+            <article class="language python">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python logo"/></b>
+              <h3>Python</h3>
+              <p>Supports automation, data work, and back-end development.</p>
+            </article>
+            <article class="language java">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo"/></b>
+              <h3>Java</h3>
+              <p>Creates reliable applications for web, desktop, and Android.</p>
+            </article>
+            <article class="language mysql">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL logo"/></b>
+              <h3>MySQL</h3>
+              <p>Manages structured relational data and high-speed database queries.</p>
+            </article>
+            <article class="language postgresql">
+              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo"/></b>
+              <h3>PostgreSQL</h3>
+              <p>Handles robust, complex relational databases and advanced data schemas.</p>
+            </article>
+          </div>
+
         </div>
       </section>
-      <section id="skills" class="skills-section">
-        <p class="label"></p>
-        <div class="skills-heading">
-          <h2 class="section-title scroll-reveal-left">How much I use<br /><span>each language.</span></h2>
-          <p>
-            A snapshot of the languages I use most while learning and building
-            projects.
-          </p>
-        </div>
-        <div
-          class="skill-groups"
-          aria-label="Coding language usage percentages"
-        >
-          <div class="skill-group">
-            <h3>Front-end</h3>
-            <div class="skill-bars">
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>HTML</span><strong>90%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 90%"></i></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>CSS</span><strong>85%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 85%"></i></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>JavaScript</span><strong>80%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 80%"></i></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>React.js</span><strong>30%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 30%"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>Back-end</h3>
-            <div class="skill-bars">
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>Python</span><strong>25%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 25%"></i></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-label">
-                  <span>Java</span><strong>70%</strong>
-                </div>
-                <div class="skill-bar-track"><i style="--level: 70%"></i></div>
-              </div>
-            </div>
-          </div>
+            <section id="gallery" class="gallery-section">
+        <div class="gallery-container">
+          <div class="gallery-item"><img src="gallery/538535e6-e63e-4ba3-9054-775167961e7c.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/79b2398e-e662-4c10-b7cf-c565e690bb6d.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/9138d22e-fc24-4052-ad2b-52ae2aa45d53.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/a0a15846-19c6-4af9-adff-eeb045af04a9.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/c127c1ac-0e66-4d6b-9ce4-68dc8c0c6879.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/d6844641-61ee-4769-b67d-9bceca911b52.jpg" alt="Gallery Image" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/d6fb2e73-457f-4b03-8646-2e1e946abeb6.jpg" alt="Gallery Image" loading="lazy"></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="gallery-item"><img src="gallery/538535e6-e63e-4ba3-9054-775167961e7c.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/79b2398e-e662-4c10-b7cf-c565e690bb6d.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/9138d22e-fc24-4052-ad2b-52ae2aa45d53.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/a0a15846-19c6-4af9-adff-eeb045af04a9.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/c127c1ac-0e66-4d6b-9ce4-68dc8c0c6879.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/d6844641-61ee-4769-b67d-9bceca911b52.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+          <div class="gallery-item"><img src="gallery/d6fb2e73-457f-4b03-8646-2e1e946abeb6.jpg" alt="" aria-hidden="true" loading="lazy"></div>
         </div>
       </section>
       <section id="contact">
         <p class="label"></p>
-        <h2>Ideas deserve<br />to be <span>built.</span></h2>
+        <h2>kolera mani<br />migo<span></span></h2>
         <a class="mail" href="mailto:codthenew@gmail.com"
           >codthenew@gmail.com &nearr;</a
         >

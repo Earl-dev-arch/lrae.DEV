@@ -211,14 +211,55 @@ const observer = new IntersectionObserver((entries) => {
 
 animatedText.forEach((element) => observer.observe(element));
 
-const leftRevealElements = document.querySelectorAll('.scroll-reveal-left, .scroll-reveal-right');
-const leftRevealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    entry.target.classList.toggle('is-revealed', entry.isIntersecting);
-  });
-}, { threshold: 0.2 });
+const revealConfigs = [
+  { selector: '.scroll-reveal-left', threshold: 0.28, delay: 0 },
+  { selector: '.scroll-reveal-right', threshold: 0.5, delay: 120 },
+];
 
-leftRevealElements.forEach((element) => leftRevealObserver.observe(element));
+revealConfigs.forEach(({ selector, threshold, delay }) => {
+  const elements = document.querySelectorAll(selector);
+  if (!elements.length) return;
+
+  const observer = new IntersectionObserver((entries, observerInstance) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.style.transitionDelay = `${delay}ms`;
+      entry.target.classList.add('is-revealed');
+      observerInstance.unobserve(entry.target);
+    });
+  }, {
+    threshold,
+    rootMargin: '0px 0px -8% 0px',
+  });
+
+  elements.forEach((element) => observer.observe(element));
+});
+
+const journeyItems = document.querySelectorAll('.journey-item.scroll-reveal-card');
+if (journeyItems.length) {
+  journeyItems.forEach((item, index) => {
+    item.style.setProperty('--reveal-delay', `${index * 120}ms`);
+  });
+
+  const journeyObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const itemIndex = Array.from(journeyItems).indexOf(entry.target);
+      entry.target.style.setProperty('--reveal-delay', `${itemIndex * 120}ms`);
+
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -8% 0px',
+  });
+
+  journeyItems.forEach((item) => journeyObserver.observe(item));
+}
 
 const skillsSection = document.querySelector('.skills-section');
 

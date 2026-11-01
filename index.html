@@ -519,7 +519,180 @@
               }
             }
 
-
+            .journey-section {
+              width: min(100%, 880px);
+              margin: clamp(44px, 7vw, 84px) auto 0;
+              padding: 0 0 18px;
+            }
+            .journey-header {
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+              gap: 16px;
+              margin-bottom: 26px;
+            }
+            .journey-header .label {
+              margin: 0;
+              font: 700 11px "DM Mono", monospace;
+              letter-spacing: 0.18em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.7);
+            }
+            .journey-header h2 {
+              margin: 0;
+              color: #5d5f5c;
+              font-size: clamp(2rem, 4vw, 3.2rem);
+              letter-spacing: -0.06em;
+            }
+            .journey-header h2 span {
+              color: #9a9a98;
+            }
+            .journey-timeline {
+              position: relative;
+              display: grid;
+              gap: 18px;
+            }
+            .journey-timeline::before {
+              content: "";
+              position: absolute;
+              left: 110px;
+              top: 12px;
+              bottom: 12px;
+              width: 1px;
+              background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.12),
+                rgba(255, 255, 255, 0.38),
+                rgba(255, 255, 255, 0.12)
+              );
+            }
+            .journey-item {
+              position: relative;
+              display: grid;
+              grid-template-columns: 140px minmax(0, 1fr);
+              align-items: center;
+              gap: 18px;
+              opacity: 0;
+              transform: translateY(28px);
+              transition:
+                opacity 0.6s ease,
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+              transition-delay: var(--reveal-delay, 0ms);
+            }
+            .journey-item.is-visible {
+              opacity: 1;
+              transform: translateY(0);
+            }
+            .journey-item::before {
+              content: "";
+              position: absolute;
+              left: 105px;
+              width: 12px;
+              height: 12px;
+              border: 2px solid rgba(255, 255, 255, 0.8);
+              border-radius: 50%;
+              background: #0b0c0e;
+              box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.06);
+            }
+            .journey-year {
+              position: relative;
+              z-index: 1;
+              justify-self: start;
+              padding: 8px 14px;
+              border: 1px solid rgba(255, 255, 255, 0.16);
+              border-radius: 999px;
+              background: rgba(19, 21, 25, 0.8);
+              color: #f3f5f2;
+              font: 700 0.72rem "DM Mono", monospace;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+            }
+            .journey-card {
+              position: relative;
+              padding: 18px 20px 20px;
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              border-radius: 18px;
+              background: rgba(18, 20, 24, 0.82);
+              box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+              transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            }
+            .journey-card:hover {
+              transform: translateY(-3px);
+              border-color: rgba(255, 255, 255, 0.26);
+              box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+            }
+            .journey-tag {
+              display: inline-flex;
+              margin-bottom: 10px;
+              padding: 5px 10px;
+              border-radius: 999px;
+              background: rgba(255, 255, 255, 0.06);
+              color: #dfe8ea;
+              font: 700 0.54rem "DM Mono", monospace;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+            }
+            .journey-card h3 {
+              margin: 0 0 8px;
+              color: #ffffff;
+              font-size: clamp(1.05rem, 2vw, 1.5rem);
+              line-height: 1.2;
+            }
+            .journey-card p {
+              margin: 0;
+              color: rgba(235, 239, 236, 0.82);
+              font-size: 0.98rem;
+              line-height: 1.6;
+            }
+            body.light-theme .journey-header .label,
+            body.light-theme .journey-header h2,
+            body.light-theme .journey-year,
+            body.light-theme .journey-card h3,
+            body.light-theme .journey-card p,
+            body.light-theme .journey-tag {
+              color: #111315;
+            }
+            body.light-theme .journey-header h2 span {
+              color: #666a64;
+            }
+            body.light-theme .journey-card {
+              border-color: rgba(17, 19, 21, 0.12);
+              background: rgba(233, 236, 230, 0.96);
+              box-shadow: 0 12px 26px rgba(44, 52, 42, 0.08);
+            }
+            body.light-theme .journey-year {
+              background: rgba(245, 247, 242, 0.9);
+              border-color: rgba(17, 19, 21, 0.12);
+            }
+            body.light-theme .journey-card p {
+              color: rgba(17, 19, 21, 0.7);
+            }
+            body.light-theme .journey-tag {
+              background: rgba(17, 19, 21, 0.06);
+            }
+            @media (max-width: 650px) {
+              .journey-header {
+                align-items: flex-start;
+                flex-direction: column;
+              }
+              .journey-timeline::before {
+                left: 18px;
+              }
+              .journey-item {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding-left: 38px;
+              }
+              .journey-item::before {
+                left: 12px;
+              }
+              .journey-year {
+                justify-self: start;
+              }
+              .journey-card {
+                width: 100%;
+              }
+            }
 
     </style>
   </head>
@@ -779,6 +952,97 @@
           </div>
         </div>
       </section>
+
+      <section class="journey-section" aria-labelledby="journey-title">
+        <div class="journey-header">
+          <p class="label">DEVELOPMENT JOURNEY</p>
+          <h2 id="journey-title">My <span>path</span></h2>
+        </div>
+
+        <div class="journey-timeline">
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Dec 2025</div>
+            <div class="journey-card">
+              <span class="journey-tag">Start</span>
+              <h3>Started my web development journey</h3>
+              <p>I began learning the basics and building my foundation in development and digital design.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Jan 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Foundation</span>
+              <h3>Practiced HTML and CSS</h3>
+              <p>I focused on structure, layout, styling, and making pages look clean and functional.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Feb 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Logic</span>
+              <h3>Learned JavaScript</h3>
+              <p>I started understanding interactivity, functions, and how to make websites feel more alive.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Apr 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Project</span>
+              <h3>Built a happy birthday website</h3>
+              <p>I applied my skills to a real project and learned how to turn a simple idea into a complete experience.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Jul 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Creative</span>
+              <h3>Created a website with significant designs</h3>
+              <p>I explored design and storytelling more deeply while building a website with a more personal and emotional purpose.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Aug 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Growth</span>
+              <h3>Learned other frameworks</h3>
+              <p>I expanded my toolkit by exploring modern frontend tools and libraries to improve my workflow and projects.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Sep 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Improving</span>
+              <h3>Enhanced my development skills</h3>
+              <p>I worked on a bigger project with real-world requirements, helping me grow in teamwork and execution.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Oct 2026</div>
+            <div class="journey-card">
+              <span class="journey-tag">Build</span>
+              <h3>Co-developed yourpath</h3>
+              <p>I continued improving my product thinking, UI quality, and collaboration as I contributed to another meaningful project.</p>
+            </div>
+          </article>
+
+          <article class="journey-item scroll-reveal-card">
+            <div class="journey-year">Now</div>
+            <div class="journey-card">
+              <span class="journey-tag">Current</span>
+              <h3>Learning backend and databases</h3>
+              <p>I am now expanding beyond frontend to understand backend logic, data handling, and how full-stack systems work together.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
             <section id="work">
         <p class="label"></p>
         <div class="work-heading">

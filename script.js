@@ -101,6 +101,16 @@ themeToggle?.addEventListener('click', () => {
   syncThemeToggle(isLight);
 });
 
+const portraitWrap = document.querySelector('.portrait-wrap');
+const portraitCard = document.querySelector('.lanyard-card');
+
+if (portraitWrap && portraitCard) {
+  portraitCard.style.setProperty('--card-rotate-x', '0deg');
+  portraitCard.style.setProperty('--card-rotate-y', '0deg');
+  portraitCard.style.setProperty('--card-shift-x', '0px');
+  portraitCard.style.setProperty('--card-shift-y', '0px');
+}
+
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorRing = document.querySelector('.cursor-ring');
 
@@ -144,7 +154,7 @@ if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
 }
 
 const animatedText = document.querySelectorAll(
-  '.hero h1, section > .label, .card h2, .section-title, #contact h2, .language h3'
+  '.hero h1, section > .label, .card h2, .section-title, #contact h2'
 );
 
 animatedText.forEach(splitLetters);
@@ -274,178 +284,3 @@ pageLinks.forEach((link) => link.addEventListener('click', (event) => {
     window.location.assign(link.href);
   }, 420);
 }));
-/* Fan-out deck: click the stack to spread four cards, click again to deal the
-   next four, click once the deck is exhausted to return it to the stack. */
-const fanDeck = document.querySelector('.fan-deck');
-
-if (fanDeck) {
-  const deckStage = fanDeck.querySelector('.language-grid');
-  const deckCards = [...fanDeck.querySelectorAll('.language')];
-
-  const visible = 4;
-  const total = deckCards.length;
-
-
-  let start = 0;
-  let isOpen = false;
-  let isAdvancing = false;
-
-  // Every card carries a "next" control, only visible once that card is revealed.
-  deckCards.forEach((card) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'card-next';
-    button.innerHTML = '<span>Next languages</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
-    card.append(button);
-  });
-
-  const syncNextButton = () => {
-    // Past the final set the deck loops back to the first card.
-    const isWrapping = start + Math.min(visible, total - start) >= total;
-
-    deckCards.forEach((card) => {
-      const button = card.querySelector('.card-next');
-      if (!button) return;
-      button.querySelector('span').textContent = isWrapping ? 'Back to the start' : 'Next languages';
-      button.setAttribute(
-        'aria-label',
-        isWrapping ? 'Show the first four languages again' : 'Show the next four languages'
-      );
-    });
-  };
-
-  const render = (animate) => {
-    fanDeck.classList.toggle('is-open', isOpen);
-    deckStage.setAttribute('aria-expanded', String(isOpen));
-    deckStage.setAttribute(
-      'aria-label',
-      isOpen ? 'Show the next programming languages' : 'Show programming languages'
-    );
-
-    // A set may be shorter than four (the deck's tail), so centre on the cards
-    // actually dealt rather than on a fixed four-card spread.
-    const dealt = Math.min(visible, total - start);
-    const mid = (dealt - 1) / 2;
-
-    deckCards.forEach((card, index) => {
-      const offset = index - start;
-      const isShown = offset >= 0 && offset < dealt;
-      const slot = offset - mid;
-      const order = Math.abs(slot) * 2 + (slot > 0 ? 1 : 0);
-      const dir = slot === 0 ? 1 : Math.sign(slot);
-
-      card.style.setProperty('--slot', String(slot));
-      card.style.setProperty('--order', String(order));
-      card.style.setProperty('--dir', String(dir));
-      // Cards further from the centre lean a little more, so a short set
-      // still reads as a fan instead of a flat row.
-      card.style.setProperty('--tilt-scale', String(1 + Math.abs(slot) * 0.2));
-      card.classList.toggle('is-shown', isShown);
-      card.setAttribute('aria-hidden', String(!isShown));
-      card.tabIndex = isShown ? 0 : -1;
-
-      if (!animate) {
-        card.style.transition = 'none';
-        void card.offsetWidth;
-        card.style.transition = '';
-      }
-    });
-
-    syncNextButton();
-  };
-
-  const advance = () => {
-    if (isAdvancing) return;
-
-    if (!isOpen) {
-      isOpen = true;
-      start = 0;
-      render(true);
-      return;
-    }
-
-    // Always deal a full hand. Past the end the deck restarts from the first
-    // card, so the last set is never a short, lopsided fan.
-    isAdvancing = true;
-    clearReveal();
-    deckCards.forEach((card) => card.classList.remove('is-shown'));
-    window.setTimeout(() => {
-      start = start + visible >= total ? 0 : start + visible;
-      render(true);
-      isAdvancing = false;
-    }, 220);
-  };
-
-  render(false);
-
-  deckStage.addEventListener('click', advance);
-  deckStage.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      advance();
-    }
-  });
-
-  // Click a laid-out card to reveal it; click the same card again to tuck it back.
-  let revealedCard = null;
-
-  const revealCard = (card) => {
-    const isSame = revealedCard === card;
-    deckCards.forEach((item) => item.classList.remove('is-revealed'));
-
-    if (isSame) {
-      revealedCard = null;
-      fanDeck.classList.remove('has-reveal');
-      return;
-    }
-
-    revealedCard = card;
-    card.classList.add('is-revealed');
-    fanDeck.classList.add('has-reveal');
-    syncNextButton();
-  };
-
-  const clearReveal = () => {
-    if (!revealedCard) return;
-    revealedCard.classList.remove('is-revealed');
-    fanDeck.classList.remove('has-reveal');
-    revealedCard = null;
-  };
-
-  deckCards.forEach((card) => {
-    card.addEventListener('click', (event) => {
-      if (!card.classList.contains('is-shown')) return;
-      // The next control lives inside the card, so handle it before revealing.
-      if (event.target.closest('.card-next')) {
-        event.stopPropagation();
-        advance();
-        return;
-      }
-      event.stopPropagation();
-      revealCard(card);
-    });
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        event.stopPropagation();
-        revealCard(card);
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') clearReveal();
-  });
-
-  const deckObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting || !isOpen) return;
-      isOpen = false;
-      start = 0;
-      clearReveal();
-      render(true);
-    });
-  }, { threshold: 0.1 });
-
-  deckObserver.observe(fanDeck);
-}

@@ -194,17 +194,28 @@
         color: #ffffff;
       }
       .social-links a {
-        border: 1px solid #282c32;
-        border-radius: 50%;
+        border: 0;
+        border-radius: 0;
         color: #f5f5f0;
-        background: #16181b;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        background: transparent;
+        box-shadow: none;
       }
       .social-links a:hover,
       .social-links a:focus-visible {
-        border-color: #ffffff;
-        background: #ffffff;
-        color: #101113;
+        background: transparent;
+        color: #f5f5f0;
+      }
+      .social-links .social-facebook:hover,
+      .social-links .social-facebook:focus-visible {
+        color: #1877f2;
+      }
+      .social-links .social-instagram:hover,
+      .social-links .social-instagram:focus-visible {
+        color: #e1306c;
+      }
+      .social-links .social-tiktok:hover,
+      .social-links .social-tiktok:focus-visible {
+        color: #25f4ee;
       }
       footer {
         margin: 0 6vw 20px;
@@ -234,15 +245,26 @@
         color: #4d7310;
       }
       body.light-theme .social-links a {
-        border-color: #ced3ca;
-        background: #e8ebe3;
+        border: 0;
+        background: transparent;
         color: #111315;
       }
       body.light-theme .social-links a:hover,
       body.light-theme .social-links a:focus-visible {
-        border-color: #4d7310;
-        background: #4d7310;
-        color: #fff;
+        background: transparent;
+        color: #111315;
+      }
+      body.light-theme .social-links .social-facebook:hover,
+      body.light-theme .social-links .social-facebook:focus-visible {
+        color: #1877f2;
+      }
+      body.light-theme .social-links .social-instagram:hover,
+      body.light-theme .social-links .social-instagram:focus-visible {
+        color: #e1306c;
+      }
+      body.light-theme .social-links .social-tiktok:hover,
+      body.light-theme .social-links .social-tiktok:focus-visible {
+        color: #1a1a1a;
       }
       body.light-theme footer {
         border-color: #d0d5cb;
@@ -273,11 +295,21 @@
       body.light-theme #contact h2 span {
         color: #333;
       }
-      body.light-theme .profile-photo {
-        border-color: #111;
+      body.light-theme .lanyard-card {
+        background: linear-gradient(145deg, rgba(245, 247, 242, 0.96), rgba(226, 232, 224, 0.9));
+        border-color: rgba(17, 19, 21, 0.16);
         box-shadow:
-          12px 12px 0 #666,
-          0 0 0 2px rgba(17, 19, 21, 0.2);
+          0 26px 48px rgba(44, 52, 42, 0.12),
+          0 12px 22px rgba(17, 19, 21, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.65);
+      }
+      body.light-theme .lanyard-card::before {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(17, 19, 21, 0.04));
+        border-color: rgba(17, 19, 21, 0.08);
+      }
+      body.light-theme .profile-photo {
+        border-color: rgba(17, 19, 21, 0.18);
+        box-shadow: 0 18px 26px rgba(17, 19, 21, 0.18);
       }
       body.light-theme .profile-stats p {
         border-color: #d0d5cb;
@@ -398,10 +430,92 @@
             body.light-theme .gallery-item:hover {
               border-color: #111;
             }
+            .tech-stack-showcase {
+              margin: 0 0 2vw;
+              padding: 0 0 10px;
+              border: none;
+              border-radius: 0;
+              background: transparent;
+              box-shadow: none;
+            }
+            .tech-stack-showcase .label {
+              margin: 0 0 8px;
+              font: 700 11px "DM Mono", monospace;
+              letter-spacing: 0.18em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.7);
+            }
+            .tech-stack-showcase h2 {
+              margin: 0;
+              color: #5a5a59;
+              font-size: clamp(2rem, 4vw, 3.3rem);
+              letter-spacing: -0.06em;
+            }
+            .tech-stack-showcase h2 span {
+              color: #353636;
+            }
+            .tech-card-deck {
+              display: grid;
+              grid-template-columns: repeat(4, minmax(110px, 1fr));
+              gap: 14px 16px;
+              width: min(100%, 760px);
+              margin: 26px auto 0;
+            }
+            .stack-card {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+              min-height: 82px;
+              padding: 12px 10px;
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              border-radius: 14px;
+              background: rgba(20, 22, 26, 0.72);
+              box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+              color: #edf5ff;
+              transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            }
+            .stack-card:hover {
+              transform: translateY(-3px);
+              border-color: rgba(255, 255, 255, 0.28);
+              box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+            }
+            .stack-card img {
+              width: 22px;
+              height: 22px;
+              object-fit: contain;
+              flex-shrink: 0;
+              filter: grayscale(1) brightness(0.92) contrast(1.1);
+              opacity: 0.86;
+              transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+            }
+            .stack-card:hover img {
+              filter: grayscale(0) brightness(1.08) saturate(1.2);
+              opacity: 1;
+              transform: scale(1.08);
+            }
+            .stack-card span {
+              font: 700 0.58rem "DM Mono", monospace;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color: #edf5ff;
+              white-space: nowrap;
+              transition: color 0.2s ease;
+            }
+            .stack-card:hover span {
+              color: #ffffff;
+            }
             @media (max-width: 650px) {
-              .gallery-item {
-                width: 180px;
-                height: 250px;
+              .tech-card-deck {
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+                gap: 12px 10px;
+              }
+              .stack-card {
+                min-height: 72px;
+                padding: 10px 8px;
+              }
+              .stack-card span {
+                font-size: 0.52rem;
               }
             }
 
@@ -426,7 +540,7 @@
         >Lrae<span>.DEV</span><span class="role">junior programmer</span></a
       >
                 <nav aria-label="Primary navigation">
-        <a href="#work">work</a><a href="#stack">stack</a
+        <a href="#work">work</a
         ><a href="#gallery">gallery</a><a href="#contact">contact</a>
       </nav>
       <button
@@ -476,15 +590,17 @@
             </p>
             
           </div>
-          <div class="portrait-wrap">
-            <img
-              class="profile-photo"
-              src="profile3.jpg"
-              alt="Portrait of Earl"
-            />
+          <div class="portrait-wrap" aria-label="Profile card">
+            <div class="lanyard-card">
+              <img
+                class="profile-photo"
+                src="profile3.jpg"
+                alt="Portrait of Earl"
+              />
+            </div>
             <div class="profile-stats" aria-label="Profile highlights">
-              <p> 1+ years of experience</p>
-              <p> Front-end Developer</p>
+              <p class="profile-pill">1+ Years of Experience</p>
+              <p class="profile-pill">Front-end Developer</p>
             </div>
           </div>
         </div>
@@ -592,6 +708,77 @@
           </div>
         </div>
       </div>
+      <section class="tech-stack-showcase" aria-labelledby="tech-stack-title">
+        <p class="label">TOOLS I USE</p>
+        <h2 id="tech-stack-title">Web<span> stack</span></h2>
+
+        <div class="tech-card-deck" aria-label="Technology stack card deck">
+          <div class="stack-card" aria-label="HTML">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+            <span>HTML</span>
+          </div>
+          <div class="stack-card" aria-label="CSS">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+            <span>CSS</span>
+          </div>
+          <div class="stack-card" aria-label="Tailwind CSS">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" />
+            <span>Tailwind</span>
+          </div>
+          <div class="stack-card" aria-label="Bootstrap">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />
+            <span>Bootstrap</span>
+          </div>
+          <div class="stack-card" aria-label="Linux">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" />
+            <span>Linux</span>
+          </div>
+          <div class="stack-card" aria-label="JavaScript">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+            <span>JavaScript</span>
+          </div>
+          <div class="stack-card" aria-label="Node.js">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+            <span>Node.js</span>
+          </div>
+          <div class="stack-card" aria-label="Next.js">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" />
+            <span>Next.js</span>
+          </div>
+          <div class="stack-card" aria-label="React.js">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js" />
+            <span>React</span>
+          </div>
+          <div class="stack-card" aria-label="Git">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
+            <span>Git</span>
+          </div>
+          <div class="stack-card" aria-label="VS Code">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" />
+            <span>VS Code</span>
+          </div>
+          <div class="stack-card" aria-label="MySQL">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+            <span>MySQL</span>
+          </div>
+          <div class="stack-card" aria-label="PostgreSQL">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
+            <span>PostgreSQL</span>
+          </div>
+          <div class="stack-card" aria-label="GitHub">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" />
+            <span>GitHub</span>
+          </div>
+          <div class="stack-card" aria-label="OpenAI Codex">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codex/codex-original.svg" alt="OpenAI Codex" />
+            <span>Codex</span>
+          </div>
+          <div class="stack-card" aria-label="Antigravity">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/antigravity/antigravity-original.svg" alt="Antigravity" />
+            <span>Antigravity</span>
+          </div>
+        </div>
+      </section>
             <section id="work">
         <p class="label"></p>
         <div class="work-heading">
@@ -621,77 +808,7 @@
           />
         </a>
       </section>
-            <section id="stack">
-        <p class="label"></p>
-        <h2 class="section-title scroll-reveal-right">The tools behind<br /><span>my work.</span></h2>
-        <div class="stack-slider-container fan-deck">
-          <div
-            class="language-grid"
-            role="button"
-            tabindex="0"
-            aria-expanded="false"
-            aria-label="Show programming languages"
-          >
-            <i class="deck-back" aria-hidden="true"></i>
-            <article class="language html">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 logo"/></b>
-              <h3>HTML5</h3>
-              <p>Builds the structure and content of web pages.</p>
-            </article>
-            <article class="language css">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 logo"/></b>
-              <h3>CSS3</h3>
-              <p>Styles layouts, colors, typography, and responsive designs.</p>
-            </article>
-            <article class="language js">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript logo"/></b>
-              <h3>JavaScript</h3>
-              <p>Adds interactive behavior and dynamic features to websites.</p>
-            </article>
-            <article class="language react">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js logo"/></b>
-              <h3>React.js</h3>
-              <p>Builds reusable, fast user interfaces from components.</p>
-            </article>
-            <article class="language python">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python logo"/></b>
-              <h3>Python</h3>
-              <p>Supports automation, data work, and back-end development.</p>
-            </article>
-            <article class="language java">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo"/></b>
-              <h3>Java</h3>
-              <p>Creates reliable applications for web, desktop, and Android.</p>
-            </article>
-            <article class="language mysql">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL logo"/></b>
-              <h3>MySQL</h3>
-              <p>Manages structured relational data and high-speed database queries.</p>
-            </article>
-            <article class="language postgresql">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo"/></b>
-              <h3>PostgreSQL</h3>
-              <p>Handles robust, complex relational databases and advanced data schemas.</p>
-            </article>
-            <article class="language tailwind">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS logo"/></b>
-              <h3>Tailwind CSS</h3>
-              <p>Styles interfaces quickly with utility classes right in the markup.</p>
-            </article>
-            <article class="language bootstrap">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap logo"/></b>
-              <h3>Bootstrap</h3>
-              <p>Speed-builds responsive layouts with ready-made components.</p>
-            </article>
-            <article class="language linux">
-              <b><img class="language-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux logo"/></b>
-              <h3>Linux</h3>
-              <p>Runs the shell, servers, and tooling behind daily development.</p>
-            </article>
-          </div>
-
-        </div>
-      </section>
+            
             <section id="gallery" class="gallery-section">
         <div class="gallery-container">
           <div class="gallery-item"><img src="gallery/538535e6-e63e-4ba3-9054-775167961e7c.jpg" alt="Gallery Image" loading="lazy"></div>
@@ -720,6 +837,7 @@
         <a class="phone" href="tel:09094313078">CONTACT ME / +63 909 431 3078</a>
         <div class="social-links" aria-label="Social media links">
           <a
+            class="social-facebook"
             href="https://www.facebook.com/earl.dev.arch/"
             target="_blank"
             rel="noopener noreferrer"
@@ -730,9 +848,23 @@
                 d="M13.8 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.1H8v3.1h2.7v8h3.1Z"
               />
             </svg>
-            Facebook
           </a>
           <a
+            class="social-tiktok"
+            href="https://www.tiktok.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M14.5 3.5c.8 1.6 2.2 2.7 4.1 2.9v2.8c-1.1 0-2.2-.3-3.1-.9v6.7c0 2.5-2 4.5-4.5 4.5S6.5 18 6.5 15.5 8.5 11 11 11c.5 0 1 .1 1.5.3v2.8c-.4-.2-.9-.3-1.4-.3-1.3 0-2.4 1.1-2.4 2.4s1.1 2.4 2.4 2.4 2.4-1.1 2.4-2.4V3.5h2.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+          <a
+            class="social-instagram"
             href="https://www.instagram.com/earl_dev_arch/"
             target="_blank"
             rel="noopener noreferrer"
@@ -743,7 +875,6 @@
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="1" />
             </svg>
-            Instagram
           </a>
         </div>
       </section>

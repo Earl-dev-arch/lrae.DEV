@@ -307,6 +307,54 @@ if (projectCount) {
   projectsObserver.observe(projectCount);
 }
 
+const linuxToggle = document.querySelector('.stack-card[aria-controls="linux-distro-list"]');
+const linuxDistroList = document.getElementById('linux-distro-list');
+
+if (linuxToggle && linuxDistroList) {
+  const updateLinuxPopupPosition = () => {
+    const deck = linuxToggle.closest('.tech-card-deck');
+    if (!deck) return;
+
+    const deckRect = deck.getBoundingClientRect();
+    const toggleRect = linuxToggle.getBoundingClientRect();
+
+    linuxDistroList.style.left = `${toggleRect.left - deckRect.left}px`;
+    linuxDistroList.style.top = `${toggleRect.bottom - deckRect.top + 10}px`;
+  };
+
+  const setLinuxExpanded = (expanded) => {
+    linuxToggle.classList.toggle('is-expanded', expanded);
+    linuxToggle.setAttribute('aria-expanded', String(expanded));
+    linuxDistroList.hidden = !expanded;
+
+    if (expanded) updateLinuxPopupPosition();
+  };
+
+  linuxToggle.addEventListener('click', () => {
+    const isExpanded = linuxToggle.getAttribute('aria-expanded') === 'true';
+    setLinuxExpanded(!isExpanded);
+  });
+
+  linuxToggle.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      const isExpanded = linuxToggle.getAttribute('aria-expanded') === 'true';
+      setLinuxExpanded(!isExpanded);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (linuxToggle.getAttribute('aria-expanded') === 'true') updateLinuxPopupPosition();
+  });
+
+  document.addEventListener('click', (event) => {
+    const clickedInside = linuxToggle.contains(event.target) || linuxDistroList.contains(event.target);
+    if (!clickedInside && linuxToggle.getAttribute('aria-expanded') === 'true') {
+      setLinuxExpanded(false);
+    }
+  });
+}
+
 const profileHello = document.querySelector('.profile-hello');
 
 profileHello?.addEventListener('click', () => {

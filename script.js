@@ -154,7 +154,7 @@ if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
 }
 
 const animatedText = document.querySelectorAll(
-  '.hero h1, section > .label, .card h2, .section-title, #contact h2'
+  '.hero h1, section > .label, .card h2, .section-title'
 );
 
 animatedText.forEach(splitLetters);

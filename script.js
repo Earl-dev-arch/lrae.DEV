@@ -40,6 +40,14 @@ const splitLetters = (element) => {
 
 const intro = document.querySelector('.intro-screen');
 
+window.addEventListener('load', () => {
+  if (window.innerWidth <= 650) {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+  }
+});
+
 const revealPage = () => {
   if (!intro || intro.classList.contains('is-hidden')) return;
   intro.classList.add('is-hidden');
@@ -72,6 +80,8 @@ if (intro) {
 }
 
 const themeToggle = document.querySelector('.theme-toggle');
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const mobileMenuPopup = document.getElementById('mobile-nav-menu');
 
 try {
   if (window.localStorage.getItem('portfolio-theme') === 'light') {
@@ -79,6 +89,29 @@ try {
   }
 } catch {
   // dapat mo gana ning yawaa ni boshet
+}
+
+if (mobileMenuToggle && mobileMenuPopup) {
+  const closeMobileMenu = () => {
+    mobileMenuPopup.hidden = true;
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  mobileMenuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    mobileMenuPopup.hidden = isOpen;
+    mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  mobileMenuPopup.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!mobileMenuPopup.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+      closeMobileMenu();
+    }
+  });
 }
 
 // The button shows a trollface icon, so only the accessible state changes here.

@@ -148,6 +148,97 @@
         background: #f4f4ee;
         border-bottom: 1px solid #d0d5cb;
       }
+      .top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 8px 0;
+      }
+      .top-nav a {
+        color: rgba(245, 245, 240, 0.8);
+        font: 700 10px "DM Mono", monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .top-nav a:hover,
+      .top-nav a:focus-visible {
+        color: #ffffff;
+      }
+      body.light-theme .top-nav a {
+        color: rgba(17, 19, 21, 0.72);
+      }
+      body.light-theme .top-nav a:hover,
+      body.light-theme .top-nav a:focus-visible {
+        color: #111315;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: auto;
+      }
+      .mobile-menu-toggle {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        color: #f5f5f0;
+        cursor: pointer;
+      }
+      body.light-theme .mobile-menu-toggle {
+        border-color: rgba(17, 19, 21, 0.2);
+        background: rgba(17, 19, 21, 0.04);
+        color: #111315;
+      }
+      .mobile-menu-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 99px;
+        background: currentColor;
+      }
+      .mobile-menu-popup {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 16px;
+        z-index: 50;
+        min-width: 180px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        background: rgba(11, 12, 14, 0.96);
+        box-shadow: 0 18px 32px rgba(0, 0, 0, 0.28);
+      }
+      .mobile-menu-popup[hidden] {
+        display: none;
+      }
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .mobile-nav a {
+        color: #f5f5f0;
+        font: 700 10px "DM Mono", monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+      .mobile-nav a:hover,
+      .mobile-nav a:focus-visible {
+        background: rgba(255, 255, 255, 0.06);
+      }
 
       .profile-stats p,
       .terminal,
@@ -431,12 +522,16 @@
               border-color: #111;
             }
             .tech-stack-showcase {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
               margin: 0 0 2vw;
               padding: 0 0 10px;
               border: none;
               border-radius: 0;
               background: transparent;
               box-shadow: none;
+              text-align: center;
             }
             .tech-stack-showcase .label {
               margin: 0 0 8px;
@@ -555,6 +650,18 @@
               color: #f5f5f0;
             }
             @media (max-width: 650px) {
+              .top-nav {
+                display: none;
+              }
+              .mobile-menu-toggle {
+                display: flex;
+              }
+              header {
+                position: relative;
+              }
+              .available {
+                display: none;
+              }
               .tech-card-deck {
                 grid-template-columns: repeat(2, minmax(120px, 1fr));
                 gap: 12px 10px;
@@ -764,35 +871,64 @@
       <a class="logo" href="#top"
         >Lrae<span>.DEV</span><span class="role">junior programmer</span></a
       >
-      <button
-        class="theme-toggle"
-        type="button"
-        aria-label="Switch to light theme"
-        aria-pressed="false"
-      >
-        <svg class="meme-icon meme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2" />
-          <path d="M12 20v2" />
-          <path d="m4.93 4.93 1.41 1.41" />
-          <path d="m17.66 17.66 1.41 1.41" />
-          <path d="M2 12h2" />
-          <path d="M20 12h2" />
-          <path d="m6.34 17.66-1.41 1.41" />
-          <path d="m19.07 4.93-1.41 1.41" />
-        </svg>
-        <svg class="meme-icon meme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path
-            d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
-          />
-        </svg>
-      </button>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#top">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="#journey">Journey</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch to light theme"
+          aria-pressed="false"
+        >
+          <svg class="meme-icon meme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
+          <svg class="meme-icon meme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+            />
+          </svg>
+        </button>
+        <button
+          class="mobile-menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav-menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="mobile-menu-popup" id="mobile-nav-menu" hidden>
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+          <a href="#top">Home</a>
+          <a href="#tools">Tools</a>
+          <a href="#journey">Journey</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
       <a class="available" href="mailto:codthenew@gmail.com"
         >&bull; available for hire</a
       >
     </header>
     <main id="top">
-      <section class="hero">
+      <section class="hero" id="home">
         <p class="label"></p>
         <div class="hero-grid">
           <div class="hero-title">
@@ -929,9 +1065,9 @@
           </div>
         </div>
       </div>
-      <section class="tech-stack-showcase" aria-labelledby="tech-stack-title">
+      <section class="tech-stack-showcase" id="tools" aria-labelledby="tech-stack-title">
         <p class="label">TOOLS I USE</p>
-        <h2 id="tech-stack-title">Web<span> tools.</span></h2>
+        <h2 id="tech-stack-title"><span></span><span> tools.</span></h2>
 
         <div class="tech-card-deck" aria-label="Technology stack card deck">
           <div class="stack-card" aria-label="HTML">
@@ -1009,7 +1145,7 @@
         </div>
       </section>
 
-      <section class="journey-section" aria-labelledby="journey-title">
+      <section class="journey-section" id="journey" aria-labelledby="journey-title">
         <div class="journey-header">
           <p class="label">DEVELOPMENT JOURNEY</p>
           <h2 id="journey-title">My <span>Journey</span></h2>

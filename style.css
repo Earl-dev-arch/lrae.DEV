@@ -1833,9 +1833,12 @@ body.light-theme .intro-screen {
   .logo .role {
     display: none;
   }
-  .theme-toggle {
+  .header-actions {
     margin-left: auto;
-    margin-right: 12px;
+    margin-right: 0;
+  }
+  .theme-toggle {
+    margin: 0;
   }
   .hero,
   section {
@@ -1843,23 +1846,39 @@ body.light-theme .intro-screen {
   }
   .hero {
     min-height: calc(100vh - 64px);
+    padding-top: 18vw;
   }
   .hero-grid {
     grid-template-columns: 1fr;
-    margin: 12vh 0 7vh;
-    gap: 9vh;
+    margin: 6vh 0 5vh;
+    gap: 5vh;
+  }
+  .hero-title {
+    width: 100%;
   }
   .hero h1,
   #contact h2 {
     font-size: clamp(36px, 11vw, 56px);
+    line-height: 0.9;
+  }
+  .hero-word {
+    white-space: normal;
   }
   .hero-bio {
     margin-top: 20px;
     font-size: 11px;
     line-height: 1.65;
   }
+  .portrait-wrap {
+    width: min(78vw, 300px);
+    margin: 0 auto;
+  }
+  .lanyard-card {
+    width: min(78vw, 300px);
+    min-height: 330px;
+  }
   .profile-photo {
-    width: min(68vw, 260px);
+    width: 100%;
     border-width: 3px;
     box-shadow: 7px 7px 0 #333333;
   }
@@ -1883,19 +1902,7 @@ body.light-theme .intro-screen {
 }
 @media (max-width: 650px) {
   .profile-stats {
-    right: -3vw;
-    bottom: -40px;
-    gap: 6px;
-  }
-  .profile-stats p {
-    padding: 8px 10px;
-    font-size: 8px;
-  }
-  .profile-stats b {
-    width: 15px;
-    height: 15px;
-    margin-right: 5px;
-    font-size: 7px;
+    display: none;
   }
 }
 .intro-progress {

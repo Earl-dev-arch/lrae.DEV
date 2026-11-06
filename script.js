@@ -144,48 +144,6 @@ if (portraitWrap && portraitCard) {
   portraitCard.style.setProperty('--card-shift-y', '0px');
 }
 
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorRing = document.querySelector('.cursor-ring');
-
-if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
-  let ringX = 0;
-  let ringY = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-  let isTracking = false;
-
-  const animateCursor = () => {
-    ringX += (pointerX - ringX) * 0.18;
-    ringY += (pointerY - ringY) * 0.18;
-    cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    if (isTracking) window.requestAnimationFrame(animateCursor);
-  };
-
-  window.addEventListener('pointermove', (event) => {
-    pointerX = event.clientX;
-    pointerY = event.clientY;
-    cursorDot.style.transform = `translate(${pointerX}px, ${pointerY}px) translate(-50%, -50%)`;
-    cursorDot.classList.add('is-visible');
-    cursorRing.classList.add('is-visible');
-    if (!isTracking) {
-      ringX = pointerX;
-      ringY = pointerY;
-      isTracking = true;
-      window.requestAnimationFrame(animateCursor);
-    }
-  });
-
-  document.addEventListener('pointerover', (event) => {
-    cursorRing.classList.toggle('is-hovering', Boolean(event.target.closest('a, button, [role="button"]')));
-  });
-
-  document.addEventListener('pointerleave', () => {
-    cursorDot.classList.remove('is-visible');
-    cursorRing.classList.remove('is-visible');
-    isTracking = false;
-  });
-}
-
 const animatedText = document.querySelectorAll(
   '.hero h1, section > .label, .card h2, .section-title'
 );
